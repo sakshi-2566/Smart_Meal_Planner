@@ -1,0 +1,249 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    AUTOMATED MEAL PLAN & SHOPPING FLOW                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 1: USER UPDATES PROFILE                                               │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  📝 User enters:                                                             │
+│     • Age: 30                                                                │
+│     • Gender: Female                                                         │
+│     • Height: 165 cm                                                         │
+│     • Weight: 70 kg                                                          │
+│     • Activity: Moderate                                                     │
+│     • Goal: Weight Loss                                                      │
+│                                                                              │
+│  🧮 System calculates:                                                       │
+│     • BMR: 1,450 kcal                                                        │
+│     • TDEE: 2,248 kcal                                                       │
+│     • Target: 1,748 kcal (500 deficit)                                      │
+│     • Protein: 131g | Carbs: 175g | Fats: 58g                               │
+│                                                                              │
+│  [Save Changes] ──────────────────────────────────────────────────────────► │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 2: AUTO-GENERATE PROMPT                                               │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  ┌─────────────────────────────────────────────────────────────────┐       │
+│  │  🤖 Generate Personalized Meal Plan?                            │       │
+│  │                                                                  │       │
+│  │  Based on your updated profile, we can automatically:           │       │
+│  │  ✓ Generate a 7-day AI meal plan                                │       │
+│  │  ✓ Check your inventory for ingredients                         │       │
+│  │  ✓ Add missing ingredients to your cart                         │       │
+│  │  ✓ Ready for checkout!                                          │       │
+│  │                                                                  │       │
+│  │  [Maybe Later]  [Generate Now] ◄─── User clicks                 │       │
+│  └─────────────────────────────────────────────────────────────────┘       │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 3: AI GENERATES MEAL PLAN                                             │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  🔄 Loading: "Analyzing your profile..."                                    │
+│                                                                              │
+│  📅 Generating 7-day plan:                                                  │
+│                                                                              │
+│  Day 1:                                                                      │
+│    🌅 Breakfast: Oatmeal with Berries (524 kcal)                            │
+│    🌞 Lunch: Quinoa Buddha Bowl (699 kcal)                                  │
+│    🌙 Dinner: Lentil Curry (524 kcal)                                       │
+│                                                                              │
+│  Day 2:                                                                      │
+│    🌅 Breakfast: Greek Yogurt Parfait (500 kcal)                            │
+│    🌞 Lunch: Veggie Stir Fry (720 kcal)                                     │
+│    🌙 Dinner: Chickpea Pasta (528 kcal)                                     │
+│                                                                              │
+│  ... Days 3-7 (similar pattern)                                             │
+│                                                                              │
+│  ✅ Total: 21 meals planned                                                 │
+│  ✅ Saved to database                                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 4: CHECK INVENTORY                                                    │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  🔄 Loading: "Checking inventory..."                                        │
+│                                                                              │
+│  📦 Required ingredients (aggregated for 7 days):                           │
+│     • Oats: 700g                                                             │
+│     • Quinoa: 600g                                                           │
+│     • Lentils: 800g                                                          │
+│     • Chickpeas: 500g                                                        │
+│     • Greek Yogurt: 1000g                                                    │
+│     • Berries: 800g                                                          │
+│     • Vegetables: 3000g                                                      │
+│     • Olive Oil: 300ml                                                       │
+│     ... (35 ingredients total)                                               │
+│                                                                              │
+│  🏠 User's inventory:                                                        │
+│     ✓ Oats: 200g (have)                                                     │
+│     ✗ Quinoa: 0g (missing)                                                  │
+│     ✓ Lentils: 400g (have)                                                  │
+│     ✗ Chickpeas: 0g (missing)                                               │
+│     ... checking all 35 items                                                │
+│                                                                              │
+│  📊 Calculation:                                                             │
+│     Oats: need 700g - have 200g = 500g missing                              │
+│     Quinoa: need 600g - have 0g = 600g missing                              │
+│     Lentils: need 800g - have 400g = 400g missing                           │
+│     ... for all items                                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 5: AUTO-ADD TO CART                                                   │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  🔄 Loading: "Adding items to cart..."                                      │
+│                                                                              │
+│  🛒 Adding missing ingredients:                                             │
+│                                                                              │
+│  ┌────────────────────────────────────────────────────────────┐            │
+│  │ Ingredient         │ Quantity │ Unit │ Price    │ Subtotal │            │
+│  ├────────────────────────────────────────────────────────────┤            │
+│  │ Oats               │ 500      │ g    │ $3.00/kg │ $1.50    │            │
+│  │ Quinoa             │ 600      │ g    │ $4.00/kg │ $2.40    │            │
+│  │ Lentils            │ 400      │ g    │ $3.00/kg │ $1.20    │            │
+│  │ Chickpeas          │ 500      │ g    │ $3.00/kg │ $1.50    │            │
+│  │ Greek Yogurt       │ 1000     │ g    │ $6.00/kg │ $6.00    │            │
+│  │ Mixed Berries      │ 800      │ g    │ $5.00/kg │ $4.00    │            │
+│  │ Broccoli           │ 600      │ g    │ $4.00/kg │ $2.40    │            │
+│  │ Bell Peppers       │ 500      │ g    │ $4.00/kg │ $2.00    │            │
+│  │ Tomatoes           │ 800      │ g    │ $4.00/kg │ $3.20    │            │
+│  │ Spinach            │ 400      │ g    │ $4.00/kg │ $1.60    │            │
+│  │ Olive Oil          │ 300      │ ml   │ $7.00/l  │ $2.10    │            │
+│  │ ... (5 more items)                                         │            │
+│  └────────────────────────────────────────────────────────────┘            │
+│                                                                              │
+│  ✅ 15 items added to cart                                                  │
+│  💰 Total: $87.50                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 6: SHOW RESULTS                                                       │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  ┌─────────────────────────────────────────────────────────────────┐       │
+│  │  ✅ Meal Plan Generated Successfully!                           │       │
+│  │                                                                  │       │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │       │
+│  │  │      21      │  │      15      │  │   $87.50     │          │       │
+│  │  │ Meals Planned│  │ Items Added  │  │  Cart Total  │          │       │
+│  │  └──────────────┘  └──────────────┘  └──────────────┘          │       │
+│  │                                                                  │       │
+│  │  Missing Ingredients Added to Cart:                             │       │
+│  │  • Oats: 500g - $1.50                                           │       │
+│  │  • Quinoa: 600g - $2.40                                         │       │
+│  │  • Lentils: 400g - $1.20                                        │       │
+│  │  ... (12 more items)                                            │       │
+│  │                                                                  │       │
+│  │  [Close]  [View Meal Plan]  [Go to Cart] ◄─── User clicks      │       │
+│  └─────────────────────────────────────────────────────────────────┘       │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 7: SHOPPING CART                                                      │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  🛒 Shopping Cart (15 items)                                                │
+│                                                                              │
+│  ┌────────────────────────────────────────────────────────────┐            │
+│  │ Oats (Grains)                    500g        $1.50    [🗑]  │            │
+│  │ Quinoa (Grains)                  600g        $2.40    [🗑]  │            │
+│  │ Lentils (Protein)                400g        $1.20    [🗑]  │            │
+│  │ Chickpeas (Protein)              500g        $1.50    [🗑]  │            │
+│  │ Greek Yogurt (Dairy)            1000g        $6.00    [🗑]  │            │
+│  │ ... (10 more items)                                         │            │
+│  └────────────────────────────────────────────────────────────┘            │
+│                                                                              │
+│  📋 Order Summary:                                                           │
+│     Items: 15                                                                │
+│     Subtotal: $87.50                                                         │
+│     Delivery: $5.00                                                          │
+│     ─────────────────                                                        │
+│     Total: $92.50                                                            │
+│                                                                              │
+│  📍 Delivery Address:                                                        │
+│  ┌────────────────────────────────────────────────────────────┐            │
+│  │ 123 Main Street, Apt 4B                                    │            │
+│  │ New York, NY 10001                                         │            │
+│  └────────────────────────────────────────────────────────────┘            │
+│                                                                              │
+│  [Continue Shopping]  [Proceed to Checkout] ◄─── User clicks                │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 8: PROCESS ORDER                                                      │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  ⏳ Processing...                                                            │
+│                                                                              │
+│  1. ✓ Validating cart (15 items)                                            │
+│  2. ✓ Validating delivery address                                           │
+│  3. ✓ Generating order number: ORD-20241204-ABC123                          │
+│  4. ✓ Creating order record                                                 │
+│  5. ✓ Creating 15 order items                                               │
+│  6. ✓ Clearing shopping cart                                                │
+│  7. ✓ Sending confirmation                                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  STEP 9: ORDER CONFIRMATION                                                 │
+│  ═══════════════════════════════                                            │
+│                                                                              │
+│  ┌─────────────────────────────────────────────────────────────────┐       │
+│  │  ✅ Order Placed Successfully!                                  │       │
+│  │                                                                  │       │
+│  │              🎉 Thank you for your order! 🎉                     │       │
+│  │                                                                  │       │
+│  │  ┌────────────────────────────────────────────────────┐         │       │
+│  │  │  Order Number:                                     │         │       │
+│  │  │  ORD-20241204-ABC123                               │         │       │
+│  │  │                                                     │         │       │
+│  │  │  Total Amount:                                     │         │       │
+│  │  │  $92.50                                            │         │       │
+│  │  │                                                     │         │       │
+│  │  │  15 items                                          │         │       │
+│  │  └────────────────────────────────────────────────────┘         │       │
+│  │                                                                  │       │
+│  │  🚚 Estimated delivery: 2-3 business days                       │       │
+│  │                                                                  │       │
+│  │  [Go to Dashboard]  [View Orders]                               │       │
+│  └─────────────────────────────────────────────────────────────────┘       │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+                            ✅ COMPLETE! ✅
+
+═══════════════════════════════════════════════════════════════════════════════
+
+SUMMARY OF AUTOMATION:
+━━━━━━━━━━━━━━━━━━━━━━
+
+✅ User updates profile (1 action)
+✅ System calculates nutrition targets (automatic)
+✅ AI generates 7-day meal plan (automatic)
+✅ System checks inventory (automatic)
+✅ Missing ingredients added to cart (automatic)
+✅ User reviews and checks out (1 action)
+✅ Order processed (automatic)
+
+TOTAL USER ACTIONS: 2
+TOTAL AUTOMATED STEPS: 6
+
+TIME SAVED: ~2 hours of manual meal planning and ingredient shopping!
+
+═══════════════════════════════════════════════════════════════════════════════

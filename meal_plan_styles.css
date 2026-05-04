@@ -1,0 +1,133 @@
+/* Day-wise Meal Plan Styles */
+
+.day-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.day-header {
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 10px;
+}
+
+.day-header h5 {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.day-nutrition {
+    display: flex;
+    gap: 15px;
+}
+
+.meals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.meal-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.meal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.meal-type-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.meal-type-badge.breakfast {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.meal-type-badge.lunch {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.meal-type-badge.dinner {
+    background: #d4edda;
+    color: #155724;
+}
+
+.meal-type-badge.snack {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.meal-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.meal-nutrition-inline {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.meal-nutrition-inline span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.meal-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.meal-actions .btn {
+    flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .meals-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .day-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 10px;
+    }
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}

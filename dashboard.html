@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Meal Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="meal_plan_styles.css">
+</head>
+
+<body>
+    <!-- Navigation will be loaded by navbar.js -->
+    <script src="navbar.js"></script>
+    <script>loadNavbar('dashboard');</script>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <div class="container-fluid">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1>Welcome back, <span id="welcomeName">User</span>! 👋</h1>
+                <p>Let's make today a healthy day</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon calories">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="todayCalories">0</h3>
+                            <p>Calories Today</p>
+                            <small>Goal: <span id="calorieGoal">2000</span> kcal</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon protein">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="todayProtein">0g</h3>
+                            <p>Protein</p>
+                            <small>Goal: <span id="proteinGoal">150</span>g</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon carbs">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="todayCarbs">0g</h3>
+                            <p>Carbs</p>
+                            <small>Goal: <span id="carbsGoal">200</span>g</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon fats">
+                            <i class="fas fa-cheese"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="todayFats">0g</h3>
+                            <p>Fats</p>
+                            <small>Goal: <span id="fatsGoal">65</span>g</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Row -->
+            <div class="row g-4">
+                <!-- Left Column -->
+                <div class="col-lg-8">
+                    <!-- Weekly Meal Plan -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-calendar-week"></i> Your Meal Plan</h4>
+                            <button class="btn btn-success btn-sm" onclick="showMealPreferencesModal()">
+                                <i class="fas fa-magic"></i> Generate New Plan
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div id="todayMeals" class="meals-list">
+                                <div class="empty-state">
+                                    <i class="fas fa-utensils"></i>
+                                    <p>No meal plan found</p>
+                                    <button class="btn btn-primary" onclick="generateAIMealPlan()">Generate Meal
+                                        Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition Progress -->
+                    <div class="dashboard-card mt-4">
+                        <div class="card-header">
+                            <h4><i class="fas fa-chart-line"></i> Nutrition Progress</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Calories</span>
+                                    <span><span id="caloriesProgress">0</span> / <span id="caloriesTarget">2000</span>
+                                        kcal</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" id="caloriesBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Protein</span>
+                                    <span><span id="proteinProgress">0</span> / <span
+                                            id="proteinTarget">150</span>g</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" id="proteinBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Carbs</span>
+                                    <span><span id="carbsProgress">0</span> / <span id="carbsTarget">200</span>g</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" id="carbsBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>Fats</span>
+                                    <span><span id="fatsProgress">0</span> / <span id="fatsTarget">65</span>g</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" id="fatsBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-lg-4">
+                    <!-- User Profile Card -->
+                    <div class="dashboard-card profile-card">
+                        <div class="card-body text-center">
+                            <div class="profile-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <h4 id="profileName">User Name</h4>
+                            <p class="text-muted" id="profileEmail">user@example.com</p>
+                            <div class="profile-stats">
+                                <div class="profile-stat">
+                                    <strong id="userBMR">0</strong>
+                                    <span>BMR</span>
+                                </div>
+                                <div class="profile-stat">
+                                    <strong id="userTDEE">0</strong>
+                                    <span>TDEE</span>
+                                </div>
+                            </div>
+                            <div class="profile-info">
+                                <p><i class="fas fa-leaf"></i> <span id="userDiet">No preference</span></p>
+                                <p><i class="fas fa-bullseye"></i> <span id="userGoal">Maintenance</span></p>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" onclick="showSection('profile')">
+                                <i class="fas fa-edit"></i> Edit Profile
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI Recommendations -->
+                    <div class="dashboard-card mt-4">
+                        <div class="card-header">
+                            <h4><i class="fas fa-robot"></i> AI Recommendations</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="aiRecommendations" class="recommendations-list">
+                                <div class="recommendation-item">
+                                    <i class="fas fa-lightbulb text-warning"></i>
+                                    <p>Complete your profile to get personalized recommendations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dashboard.js?v=3"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+:root {
+    --primary-green: #10b981;
+    --light-green: #6ee7b7;
+    --dark-green: #059669;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+}
+
+.stat-content h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stat-content p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.inventory-item {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.inventory-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.inventory-item .badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.ingredient-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.ingredient-quantity {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.expiry-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.expiry-fresh {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.expiry-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.expiry-expired {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.item-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.btn-sm {
+    padding: 5px 12px;
+    font-size: 0.85rem;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.modal-content {
+    border-radius: 12px;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+}
+
+.btn-success {
+    background: var(--primary-green);
+    border: none;
+    border-radius: 8px;
+}
+
+.btn-success:hover {
+    background: var(--dark-green);
+}
+
+@media (max-width: 768px) {
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Vegetarian/Non-Vegetarian Styles */
+.veg-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}
+
+.non-veg-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Nutrition Goals Validation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .nutrition-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+        }
+        .over-limit { border-color: #dc3545; background-color: #f8d7da; }
+        .within-limit { border-color: #28a745; background-color: #d4edda; }
+        .progress-bar-danger { background-color: #dc3545; }
+        .progress-bar-success { background-color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h2>🎯 Testing Nutrition Goals Validation</h2>
+        <p class="text-muted">This page tests if meal plans stay within user's nutrition goals.</p>
+        
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-user"></i> User Profile</h5>
+                    </div>
+                    <div class="card-body" id="userProfile">
+                        <div class="text-center py-3">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading user profile...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="fas fa-utensils"></i> Test Controls</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary mb-2 w-100" onclick="generateTestMealPlan()">
+                            <i class="fas fa-magic"></i> Generate Test Meal Plan
+                        </button>
+                        <button class="btn btn-info mb-2 w-100" onclick="loadTodayMealPlan()">
+                            <i class="fas fa-calendar-day"></i> Load Today's Meal Plan
+                        </button>
+                        <button class="btn btn-warning w-100" onclick="clearResults()">
+                            <i class="fas fa-trash"></i> Clear Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="testResults">
+            <div class="alert alert-info">
+                <strong>Instructions:</strong>
+                <ol class="mb-0">
+                    <li>Click "Generate Test Meal Plan" to create a new meal plan</li>
+                    <li>Check if the total nutrition stays within your goals</li>
+                    <li>Green = Within limits, Red = Over limits</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userProfile = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserProfile();
+        });
+        
+        function loadUserProfile() {
+            fetch('api/get_user_profile.php', {
+                credentials: 'include'
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    userProfile = data.user;
+                    displayUserProfile(userProfile);
+                } else {
+                    document.getElementById('userProfile').innerHTML = `
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> ${data.message}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('userProfile').innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            });
+        }
+        
+        function displayUserProfile(profile) {
+            document.getElementById('userProfile').innerHTML = `
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <i class="fas fa-fire text-danger"></i>
+                            <h6>${profile.target_calories || 0}</h6>
+                            <small>Target Calories</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <i class="fas fa-seedling text-primary"></i>
+                            <h6>${Math.round(profile.target_protein || 0)}g</h6>
+                            <small>Target Protein</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <i class="fas fa-bread-slice text-warning"></i>
+                            <h6>${Math.round(profile.target_carbs || 0)}g</h6>
+                            <small>Target Carbs</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center p-2 bg-light rounded">
+                            <i class="fas fa-cheese text-success"></i>
+                            <h6>${Math.round(profile.target_fats || 0)}g</h6>
+                            <small>Target Fats</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <strong>Goal:</strong> ${profile.goal || 'Not set'} | 
+                        <strong>Diet:</strong> ${profile.dietary_preference || 'Not set'}
+                    </small>
+                </div>
+            `;
+        }
+        
+        function generateTestMealPlan() {
+            if (!userProfile) {
+                alert('Please wait for user profile to load first');
+                return;
+            }
+            
+            document.getElementById('testResults').innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Generating...</span>
+                    </div>
+                    <p class="mt-2">Generating test meal plan with nutrition validation...</p>
+                </div>
+            `;
+            
+            // Generate a 1-day meal plan
+            fetch('api/generate_ai_meal_plan_with_preferences.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({
+                    days: 1,
+                    preferences: {
+                        diet_type: 'vegetarian',
+                        cuisine: 'Indian',
+                        spice_level: 'mild',
+                        meal_types: ['main-course']
+                    }
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    displayMealPlanResults(data.meal_plan);
+                } else {
+                    document.getElementById('testResults').innerHTML = `
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> ${data.message}
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('testResults').innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            });
+        }
+        
+        function loadTodayMealPlan() {
+            document.getElementById('testResults').innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading today's meal plan...</p>
+                </div>
+            `;
+            
+            fetch('api/get_week_meal_plan.php', {
+                credentials: 'include'
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && data.days && data.days.length > 0) {
+                    // Get today's meals
+                    const today = data.days.find(day => day.is_today);
+                    if (today) {
+                        displayTodayMeals(today);
+                    } else {
+                        document.getElementById('testResults').innerHTML = `
+                            <div class="alert alert-warning">
+                                <strong>No meals found for today.</strong> Generate a new meal plan first.
+                            </div>
+                        `;
+                    }
+                } else {
+                    document.getElementById('testResults').innerHTML = `
+                        <div class="alert alert-warning">
+                            <strong>No meal plan found.</strong> Generate a new meal plan first.
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('testResults').innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            });
+        }
+        
+        function displayMealPlanResults(mealPlan) {
+            const meals = mealPlan.meals || [];
+            
+            // Calculate totals
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFats = 0;
+            
+            meals.forEach(meal => {
+                totalCalories += meal.calories || 0;
+                totalProtein += meal.protein || 0;
+                totalCarbs += meal.carbs || 0;
+                totalFats += meal.fats || 0;
+            });
+            
+            displayNutritionValidation(meals, totalCalories, totalProtein, totalCarbs, totalFats);
+        }
+        
+        function displayTodayMeals(todayData) {
+            const meals = todayData.meals || [];
+            
+            // Calculate totals
+            let totalCalories = 0;
+            let totalProtein = 0;
+            let totalCarbs = 0;
+            let totalFats = 0;
+            
+            meals.forEach(meal => {
+                totalCalories += meal.calories || 0;
+                totalProtein += meal.protein || 0;
+                totalCarbs += meal.carbs || 0;
+                totalFats += meal.fats || 0;
+            });
+            
+            displayNutritionValidation(meals, totalCalories, totalProtein, totalCarbs, totalFats);
+        }
+        
+        function displayNutritionValidation(meals, totalCalories, totalProtein, totalCarbs, totalFats) {
+            const targetCalories = userProfile.target_calories || 2000;
+            const targetProtein = userProfile.target_protein || 150;
+            const targetCarbs = userProfile.target_carbs || 250;
+            const targetFats = userProfile.target_fats || 65;
+            
+            // Check if within limits (95% of target)
+            const caloriesOK = totalCalories <= (targetCalories * 0.95);
+            const proteinOK = totalProtein <= (targetProtein * 0.95);
+            const carbsOK = totalCarbs <= (targetCarbs * 0.95);
+            const fatsOK = totalFats <= (targetFats * 0.95);
+            
+            const allWithinLimits = caloriesOK && proteinOK && carbsOK && fatsOK;
+            
+            document.getElementById('testResults').innerHTML = `
+                <div class="alert alert-${allWithinLimits ? 'success' : 'danger'}">
+                    <h5><i class="fas fa-${allWithinLimits ? 'check-circle' : 'exclamation-triangle'}"></i> 
+                        Validation Result: ${allWithinLimits ? 'PASSED' : 'FAILED'}</h5>
+                    <p class="mb-0">${allWithinLimits ? 
+                        'All nutrition values are within the 95% limit of your goals!' :
+                        'Some nutrition values exceed the 95% limit of your goals.'
+                    }</p>
+                </div>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="nutrition-card ${caloriesOK ? 'within-limit' : 'over-limit'}">
+                            <div class="text-center">
+                                <i class="fas fa-fire ${caloriesOK ? 'text-success' : 'text-danger'} fa-2x mb-2"></i>
+                                <h4>${Math.round(totalCalories)}</h4>
+                                <small>Total Calories</small>
+                                <div class="progress mt-2">
+                                    <div class="progress-bar ${caloriesOK ? 'progress-bar-success' : 'progress-bar-danger'}" 
+                                         style="width: ${Math.min((totalCalories / targetCalories) * 100, 100)}%"></div>
+                                </div>
+                                <small class="text-muted">${Math.round((totalCalories / targetCalories) * 100)}% of ${targetCalories}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="nutrition-card ${proteinOK ? 'within-limit' : 'over-limit'}">
+                            <div class="text-center">
+                                <i class="fas fa-seedling ${proteinOK ? 'text-success' : 'text-danger'} fa-2x mb-2"></i>
+                                <h4>${Math.round(totalProtein)}g</h4>
+                                <small>Total Protein</small>
+                                <div class="progress mt-2">
+                                    <div class="progress-bar ${proteinOK ? 'progress-bar-success' : 'progress-bar-danger'}" 
+                                         style="width: ${Math.min((totalProtein / targetProtein) * 100, 100)}%"></div>
+                                </div>
+                                <small class="text-muted">${Math.round((totalProtein / targetProtein) * 100)}% of ${targetProtein}g</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="nutrition-card ${carbsOK ? 'within-limit' : 'over-limit'}">
+                            <div class="text-center">
+                                <i class="fas fa-bread-slice ${carbsOK ? 'text-success' : 'text-danger'} fa-2x mb-2"></i>
+                                <h4>${Math.round(totalCarbs)}g</h4>
+                                <small>Total Carbs</small>
+                                <div class="progress mt-2">
+                                    <div class="progress-bar ${carbsOK ? 'progress-bar-success' : 'progress-bar-danger'}" 
+                                         style="width: ${Math.min((totalCarbs / targetCarbs) * 100, 100)}%"></div>
+                                </div>
+                                <small class="text-muted">${Math.round((totalCarbs / targetCarbs) * 100)}% of ${targetCarbs}g</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="nutrition-card ${fatsOK ? 'within-limit' : 'over-limit'}">
+                            <div class="text-center">
+                                <i class="fas fa-cheese ${fatsOK ? 'text-success' : 'text-danger'} fa-2x mb-2"></i>
+                                <h4>${Math.round(totalFats)}g</h4>
+                                <small>Total Fats</small>
+                                <div class="progress mt-2">
+                                    <div class="progress-bar ${fatsOK ? 'progress-bar-success' : 'progress-bar-danger'}" 
+                                         style="width: ${Math.min((totalFats / targetFats) * 100, 100)}%"></div>
+                                </div>
+                                <small class="text-muted">${Math.round((totalFats / targetFats) * 100)}% of ${targetFats}g</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h5>Individual Meals:</h5>
+                <div class="row g-3">
+                    ${meals.map(meal => `
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h6 class="card-title">${meal.recipe_name}</h6>
+                                    <p class="text-muted small">${meal.meal_type}</p>
+                                    <div class="row g-2 text-center">
+                                        <div class="col-6">
+                                            <small><i class="fas fa-fire text-danger"></i> ${Math.round(meal.calories || 0)}</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><i class="fas fa-seedling text-primary"></i> ${Math.round(meal.protein || 0)}g</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><i class="fas fa-bread-slice text-warning"></i> ${Math.round(meal.carbs || 0)}g</small>
+                                        </div>
+                                        <div class="col-6">
+                                            <small><i class="fas fa-cheese text-success"></i> ${Math.round(meal.fats || 0)}g</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = `
+                <div class="alert alert-info">
+                    <strong>Instructions:</strong>
+                    <ol class="mb-0">
+                        <li>Click "Generate Test Meal Plan" to create a new meal plan</li>
+                        <li>Check if the total nutrition stays within your goals</li>
+                        <li>Green = Within limits, Red = Over limits</li>
+                    </ol>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

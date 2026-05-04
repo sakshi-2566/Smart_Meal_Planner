@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dietary Preferences</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h2>Dietary Preferences Test</h2>
+        <p>This page shows all the dietary preference options available in the system.</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Signup Page Options</h5>
+                    </div>
+                    <div class="card-body">
+                        <select class="form-control" id="signupPrefs">
+                            <option value="">Select your preference</option>
+                            <option value="none">No Restrictions</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="non-vegetarian">Non-Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="keto">Keto</option>
+                            <option value="paleo">Paleo</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Profile Page Options</h5>
+                    </div>
+                    <div class="card-body">
+                        <select class="form-control" id="profilePrefs">
+                            <option value="none">No Restriction</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="non-vegetarian">Non-Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="keto">Keto</option>
+                            <option value="paleo">Paleo</option>
+                            <option value="gluten-free">Gluten-Free</option>
+                            <option value="dairy-free">Dairy-Free</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Dashboard Display Test</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Test how dietary preferences are displayed in the dashboard:</p>
+                        <div id="displayTest"></div>
+                        <button class="btn btn-primary" onclick="testDisplay()">Test Display</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test the dietMap from dashboard.js
+        const dietMap = {
+            'none': 'No Restrictions',
+            'vegetarian': 'Vegetarian',
+            'non-vegetarian': 'Non-Vegetarian',
+            'vegan': 'Vegan',
+            'keto': 'Keto',
+            'paleo': 'Paleo',
+            'gluten-free': 'Gluten-Free'
+        };
+
+        function testDisplay() {
+            const container = document.getElementById('displayTest');
+            container.innerHTML = '<h6>Dietary Preference Display Mapping:</h6>';
+            
+            Object.keys(dietMap).forEach(key => {
+                const displayValue = dietMap[key];
+                const alertClass = key === 'non-vegetarian' ? 'success' : 'info';
+                
+                container.innerHTML += `
+                    <div class="alert alert-${alertClass} py-2 mb-2">
+                        <strong>Value:</strong> "${key}" <strong>→ Display:</strong> "${displayValue}"
+                        ${key === 'non-vegetarian' ? '<span class="badge bg-success ms-2">NEW</span>' : ''}
+                    </div>
+                `;
+            });
+        }
+
+        // Auto-test on page load
+        document.addEventListener('DOMContentLoaded', testDisplay);
+    </script>
+</body>
+</html>

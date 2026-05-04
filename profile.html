@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Smart Meal Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <!-- Navigation will be loaded by navbar.js -->
+    <script src="navbar.js"></script>
+    <script>loadNavbar('profile');</script>
+
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="card profile-sidebar">
+                    <div class="card-body text-center">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h5 class="mt-3" id="profileName">Loading...</h5>
+                        <p class="text-muted" id="profileEmail">email@example.com</p>
+                        <div class="profile-stats mt-4">
+                            <div class="stat-item">
+                                <strong id="memberSince">0</strong>
+                                <small>Days Member</small>
+                            </div>
+                            <div class="stat-item">
+                                <strong id="recipesCooked">0</strong>
+                                <small>Recipes Cooked</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <!-- Profile Tabs -->
+                <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button">
+                            <i class="fas fa-user"></i> Personal Info
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="health-tab" data-bs-toggle="tab" data-bs-target="#health" type="button">
+                            <i class="fas fa-heartbeat"></i> Health & Goals
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="preferences-tab" data-bs-toggle="tab" data-bs-target="#preferences" type="button">
+                            <i class="fas fa-sliders-h"></i> Preferences
+                        </button>
+                    </li>
+
+                </ul>
+
+                <!-- Tab Content -->
+                <div class="tab-content" id="profileTabContent">
+                    <!-- Personal Info Tab -->
+                    <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-user"></i> Personal Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="personalInfoForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" readonly>
+                                        <small class="text-muted">Email cannot be changed</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save Changes
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health & Goals Tab -->
+                    <div class="tab-pane fade" id="health" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-heartbeat"></i> Health Metrics & Goals</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="healthForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Age</label>
+                                            <input type="number" class="form-control" id="age" min="1" max="120">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Gender</label>
+                                            <select class="form-select" id="gender">
+                                                <option value="">Select...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Height (cm)</label>
+                                            <input type="number" class="form-control" id="height" step="0.1">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Weight (kg)</label>
+                                            <input type="number" class="form-control" id="weight" step="0.1">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Activity Level</label>
+                                            <select class="form-select" id="activityLevel">
+                                                <option value="sedentary">Sedentary (little or no exercise)</option>
+                                                <option value="light">Light (exercise 1-3 days/week)</option>
+                                                <option value="moderate">Moderate (exercise 3-5 days/week)</option>
+                                                <option value="active">Active (exercise 6-7 days/week)</option>
+                                                <option value="very_active">Very Active (intense exercise daily)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Goal</label>
+                                            <select class="form-select" id="goal">
+                                                <option value="weight_loss">Weight Loss</option>
+                                                <option value="maintenance">Maintenance</option>
+                                                <option value="muscle_gain">Muscle Gain</option>
+                                                <option value="athletic">Athletic Performance</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Calculated Metrics -->
+                                    <div class="alert alert-info" id="calculatedMetrics" style="display:none;">
+                                        <h6><i class="fas fa-calculator"></i> Calculated Metrics</h6>
+                                        <div class="row text-center">
+                                            <div class="col-md-3">
+                                                <strong id="bmrValue">0</strong>
+                                                <p class="mb-0 small">BMR (kcal/day)</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong id="tdeeValue">0</strong>
+                                                <p class="mb-0 small">TDEE (kcal/day)</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong id="targetCaloriesValue">0</strong>
+                                                <p class="mb-0 small">Target Calories</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong id="targetProteinValue">0g</strong>
+                                                <p class="mb-0 small">Target Protein</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save & Calculate
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Tab -->
+                    <div class="tab-pane fade" id="preferences" role="tabpanel">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-sliders-h"></i> Dietary Preferences</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="preferencesForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Dietary Preference</label>
+                                        <select class="form-select" id="dietaryPreference">
+                                            <option value="none">No Restriction</option>
+                                            <option value="vegetarian">Vegetarian</option>
+                                            <option value="non-vegetarian">Non-Vegetarian</option>
+                                            <option value="vegan">Vegan</option>
+                                            <option value="keto">Keto</option>
+                                            <option value="paleo">Paleo</option>
+                                            <option value="gluten-free">Gluten-Free</option>
+                                            <option value="dairy-free">Dairy-Free</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Allergies (comma-separated)</label>
+                                        <input type="text" class="form-control" id="allergies" placeholder="e.g., peanuts, shellfish">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Save Preferences
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

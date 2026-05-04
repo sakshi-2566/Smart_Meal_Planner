@@ -1,0 +1,104 @@
+INVENTORY TO RECIPE GENERATION FLOW
+====================================
+
+┌─────────────────────────────────────────────────────────────────┐
+│                         USER INVENTORY                          │
+│                        (inventory.html)                         │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │  User adds/manages    │
+                    │     ingredients       │
+                    │  - Chicken: 500g      │
+                    │  - Rice: 1kg          │
+                    │  - Tomatoes: 300g     │
+                    └───────────────────────┘
+                                │
+                                ▼
+                    ┌───────────────────────┐
+                    │ Click "Generate       │
+                    │      Recipes"         │
+                    └───────────────────────┘
+                                │
+                ┌───────────────┴───────────────┐
+                │                               │
+                ▼                               ▼
+    ┌─────────────────────┐       ┌─────────────────────┐
+    │  OPTION A:          │       │  OPTION B:          │
+    │  Find Matching      │       │  Generate AI        │
+    │  Recipes            │       │  Recipe             │
+    └─────────────────────┘       └─────────────────────┘
+                │                               │
+                ▼                               ▼
+    ┌─────────────────────┐       ┌─────────────────────┐
+    │ generate_from_      │       │ generate_ai_        │
+    │ inventory.php       │       │ recipe.php          │
+    └─────────────────────┘       └─────────────────────┘
+                │                               │
+                ▼                               ▼
+    ┌─────────────────────┐       ┌─────────────────────┐
+    │ Query database for  │       │ Call OpenAI API     │
+    │ approved recipes    │       │ via Python script   │
+    │                     │       │                     │
+    │ Calculate match %:  │       │ Send:               │
+    │ - Available: 3/5    │       │ - Ingredients list  │
+    │ - Match: 60%        │       │ - User preferences  │
+    │                     │       │ - Calorie targets   │
+    └─────────────────────┘       └─────────────────────┘
+                │                               │
+                ▼                               ▼
+    ┌─────────────────────┐       ┌─────────────────────┐
+    │ Return recipes with │       │ AI generates unique │
+    │ ≥60% match:         │       │ recipe:             │
+    │                     │       │                     │
+    │ 1. Chicken Rice     │       │ "Tomato Chicken     │
+    │    (100% match)     │       │  Rice Bowl"         │
+    │ 2. Fried Rice       │       │                     │
+    │    (80% match)      │       │ With full:          │
+    │ 3. Chicken Curry    │       │ - Ingredients       │
+    │    (60% match)      │       │ - Instructions      │
+    │    Missing: curry   │       │ - Nutrition info    │
+    └─────────────────────┘       └─────────────────────┘
+                │                               │
+                └───────────────┬───────────────┘
+                                ▼
+                    ┌───────────────────────┐
+                    │  Display recipes in   │
+                    │  modal with:          │
+                    │  - Recipe cards       │
+                    │  - Match %            │
+                    │  - Missing items      │
+                    │  - Nutrition info     │
+                    │  - Action buttons     │
+                    └───────────────────────┘
+                                │
+                ┌───────────────┼───────────────┐
+                ▼               ▼               ▼
+        ┌──────────┐    ┌──────────┐   ┌──────────┐
+        │   View   │    │   Cook   │   │   Save   │
+        │  Recipe  │    │   This   │   │  (AI)    │
+        └──────────┘    └──────────┘   └──────────┘
+             │               │               │
+             ▼               ▼               ▼
+        recipes.html   dashboard.html   (Coming soon)
+
+
+ADDITIONAL FEATURES
+===================
+
+Check Recipe Availability
+─────────────────────────
+User selects recipe → System checks inventory → Shows available/missing
+                                                        │
+                                                        ▼
+                                            Add missing to shopping list
+
+
+Inventory Status Tracking
+──────────────────────────
+┌─────────────┬──────────────┬──────────────┬─────────────┐
+│ Total Items │ Expiring Soon│   Expired    │    Fresh    │
+│     15      │      3       │      1       │     11      │
+│   (Green)   │   (Yellow)   │    (Red)     │   (Blue)    │
+└─────────────┴──────────────┴──────────────┴─────────────┘

@@ -1,0 +1,409 @@
+/* Dashboard Styles */
+.dashboard-nav {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background: linear-gradient(135deg, #f9fafb 0%, #ecfdf5 100%);
+    min-height: 100vh;
+}
+
+.welcome-section {
+    margin-bottom: 2rem;
+}
+
+.welcome-section h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Stat Cards */
+.stat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+}
+
+.stat-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+}
+
+.stat-icon.calories {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.stat-icon.protein {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.stat-icon.carbs {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.stat-icon.fats {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.stat-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.stat-content p {
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.stat-content small {
+    color: var(--text-light);
+    font-size: 0.85rem;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.dashboard-card .card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.dashboard-card .card-header h4 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.dashboard-card .card-header i {
+    color: var(--primary-green);
+    margin-right: 0.5rem;
+}
+
+.dashboard-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--light-green);
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* Progress Items */
+.progress-item {
+    margin-bottom: 1.5rem;
+}
+
+.progress-item:last-child {
+    margin-bottom: 0;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.progress {
+    height: 12px;
+    border-radius: 10px;
+    background: #e5e7eb;
+}
+
+.progress-bar {
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+/* Profile Card */
+.profile-card .profile-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: var(--gradient-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: white;
+}
+
+.profile-card h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(16, 185, 129, 0.1);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.profile-stat {
+    text-align: center;
+}
+
+.profile-stat strong {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--primary-green);
+    margin-bottom: 0.25rem;
+}
+
+.profile-stat span {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.profile-info {
+    margin: 1rem 0;
+}
+
+.profile-info p {
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.profile-info i {
+    color: var(--primary-green);
+    margin-right: 0.5rem;
+}
+
+/* Recommendations */
+.recommendations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.recommendation-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.recommendation-item i {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.recommendation-item p {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.quick-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.5rem 1rem;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.quick-action-btn:hover {
+    background: var(--gradient-2);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+}
+
+.quick-action-btn i {
+    font-size: 2rem;
+}
+
+.quick-action-btn span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.quick-action-btn:hover i,
+.quick-action-btn:hover span {
+    color: white;
+}
+
+/* Meals List */
+.meals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.meal-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border-radius: 15px;
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    transition: all 0.3s ease;
+}
+
+.meal-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.meal-info {
+    flex: 1;
+}
+
+.meal-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--gradient-2);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.meal-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.meal-nutrition {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.meal-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.meal-actions button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: white;
+    color: var(--primary-green);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.meal-actions button:hover {
+    background: var(--primary-green);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding-top: 80px;
+    }
+    
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Stat card highlight animation when meal is logged */
+.stat-card-highlight {
+    animation: highlightPulse 0.5s ease-in-out;
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.5) !important;
+}
+
+@keyframes highlightPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+    }
+}
